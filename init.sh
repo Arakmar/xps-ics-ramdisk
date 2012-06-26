@@ -9,6 +9,9 @@ mknod /dev/urandom c 1 9
 mkdir /dev/block
 mkdir /dev/input
 mknod /dev/input/event0 c 13 64
+mknod /dev/block/mmcblk0p13 b 179 13
+mkdir /cache
+mount -t ext4 -o nodev,nosuid /dev/block/mmcblk0p13 /cache
 
 # TODO : Fix LEDS and vibrator
 
@@ -26,8 +29,10 @@ echo '0' > /sys/devices/i2c-3/3-0040/leds/blue/brightness
 # trigger button-backlight
 echo '0' > /sys/class/leds/button-backlight/brightness
 
-if [ -s /dev/keycheck ]
+if [ -s /dev/keycheck -o -e /cache/recovery/boot ]
 then
+	rm /cache/recovery/boot
+	umount /cache
 	mkdir /etc
 	
 	# We avoid to have an etc folder directly in the ramdisk because
@@ -43,6 +48,7 @@ then
 	# GB init for recovery
 	/init_gb
 else
+	umount /cache
 	ln -s ../init_ics /sbin/ueventd
 	
 	# Boot stock ICS
