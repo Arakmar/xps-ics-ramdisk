@@ -1,0 +1,17 @@
+#
+# ADDITIONAL_DEFAULT_PROPERTIES
+#
+persist.sys.usb.config=mtp
+persist.service.adb.enable=1
+drm.service.enabled=true
+ro.opengles.version=131072
+ro.secure=0
+ro.allow.mock.location=0
+ro.debuggable=1
+#
+# VERSION_PROPERTIES
+#
+ro.semc.version.sw=1252-0023
+ro.semc.version.sw_revision=6.1.A.0.452
+ro.semc.version.sw_variant=GENERIC
+ro.semc.version.sw_type=user
