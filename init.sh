@@ -2,6 +2,11 @@
 
 export PATH=/sbin
 
+mkdir /proc
+mkdir /sys
+mount -t proc proc /proc
+mount -t sysfs sys /sys
+
 mkdir /dev
 mknod /dev/null c 1 3
 mknod /dev/zero c 1 5
@@ -10,10 +15,9 @@ mkdir /dev/block
 mkdir /dev/input
 mknod /dev/input/event0 c 13 64
 mknod /dev/block/mmcblk0p13 b 179 13
+
 mkdir /cache
 mount -t ext4 -o nodev,nosuid /dev/block/mmcblk0p13 /cache
-
-# TODO : Fix LEDS and vibrator
 
 # trigger blue LED
 echo '255' > /sys/devices/i2c-3/3-0040/leds/blue/brightness
