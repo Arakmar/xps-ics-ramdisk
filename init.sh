@@ -19,19 +19,21 @@ mknod /dev/block/mmcblk0p13 b 179 13
 mkdir /cache
 mount -t ext4 -o nodev,nosuid /dev/block/mmcblk0p13 /cache
 
-# trigger blue LED
-echo '255' > /sys/devices/i2c-3/3-0040/leds/blue/brightness
-# trigger vibration
-echo '200' > /sys/class/timed_output/vibrator/enable
-# trigger button-backlight
-echo '255' > /sys/class/leds/button-backlight/brightness
-cat /dev/input/event0 > /dev/keycheck&
-sleep 3
+if [ ! -f /cache/recovery/boot ]; then
+	# trigger blue LED
+	echo '255' > /sys/devices/i2c-3/3-0040/leds/blue/brightness
+	# trigger vibration
+	echo '200' > /sys/class/timed_output/vibrator/enable
+	# trigger button-backlight
+	echo '255' > /sys/class/leds/button-backlight/brightness
+	cat /dev/input/event0 > /dev/keycheck&
+	sleep 3
 
-# trigger blue LED
-echo '0' > /sys/devices/i2c-3/3-0040/leds/blue/brightness
-# trigger button-backlight
-echo '0' > /sys/class/leds/button-backlight/brightness
+	# trigger blue LED
+	echo '0' > /sys/devices/i2c-3/3-0040/leds/blue/brightness
+	# trigger button-backlight
+	echo '0' > /sys/class/leds/button-backlight/brightness
+fi
 
 if [ -s /dev/keycheck -o -e /cache/recovery/boot ]
 then
