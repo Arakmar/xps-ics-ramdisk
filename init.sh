@@ -51,8 +51,7 @@ then
 	rm /init.usbmode.sh
 	mv /recovery.rc /init.rc
 	
-	# GB init for recovery
-	/init_gb
+	/init_ics
 else
 	umount /cache
 	ln -s ../init_ics /sbin/ueventd
