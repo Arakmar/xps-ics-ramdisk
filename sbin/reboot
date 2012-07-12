@@ -1,1 +1,21 @@
-recovery
+#!/sbin/sh
+
+# Wrapper script to handle reboot recovery command
+
+for arg in "$@"
+do
+    case "$arg" in
+    recovery) touch /cache/recovery/boot
+		RECOVERY=1
+            ;;
+    *)
+            ;;
+    esac
+done
+
+busybox reboot $@
+RET=$?
+if [ $RET -ne 0 ] && [ $RECOVERY -eq 1 ]; then
+	rm /cache/recovery/boot
+fi
+exit $RET
