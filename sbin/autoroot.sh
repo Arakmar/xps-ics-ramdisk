@@ -42,11 +42,14 @@ chown root.root /system/xbin/su
 chmod 06755 /system/xbin/su
 
 # [busybox binary] remove existing occurances and push busybox
-if [ ! -e /system/xbin/busybox ];
+if [ ! -f /system/xbin/busybox ];
 then
-	echo "[busybox binary] symlinking busybox ..." >> /data/local/tmp/autorootlog.txt
-	ln -s /sbin/busybox /system/xbin/busybox
+	echo "[busybox binary] pushing busybox ..." >> /data/local/tmp/autorootlog.txt
+	cp /sbin/busybox /system/xbin/busybox
 fi
+echo "[busybox] fixing busybox perms and owners ..." >> /data/local/tmp/autorootlog.txt
+chown root.root /system/xbin/busybox
+chmod 0755 /system/xbin/busybox
 
 # [DONE] placing flag
 echo "[DONE] placing flag" >> /data/local/tmp/autorootlog.txt

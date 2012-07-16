@@ -333,17 +333,8 @@ on property:persist.sys.usb.config=*
 #DooMLoRD: launching autoroot
     start autoroot
 
-#DooMLoRD: launching relinkbusybox
-    start relinkbusybox
-
 #DooMLoRD: init.d scripts support
     start sysinitsupport
-
-# DooMLoRD: relink busybox service
-service relinkbusybox /sbin/relinkbusybox.sh
-    user root
-    disabled
-    oneshot
 
 # DooMLoRD: autoroot service
 service autoroot /sbin/autoroot.sh
