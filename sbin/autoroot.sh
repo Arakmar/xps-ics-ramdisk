@@ -15,9 +15,16 @@ if [ ! -f /system/autorooted ]; then
 	rm /system/bin/su
 	rm /system/xbin/su
 	rm /system/app/Superuser.apk
-	rm /data/app/Superuser.apk
+	rm /data/app/com.noshufou.android.su.apk
 	rm /system/xbin/busybox
 	rm /system/bin/busybox
+
+	echo "[Superuser app] pushing app ..." >> /data/local/tmp/autorootlog.txt
+	cp /res/autoroot/Superuser.apk /system/app/Superuser.apk
+
+	echo "[Superuser app] fixing su perms and owners ..." >> /data/local/tmp/autorootlog.txt
+	chown root.root /system/app/Superuser.apk
+	chmod 0644 /system/app/Superuser.apk
 fi
 
 # [CHECK] verify /system/xbin
@@ -34,26 +41,12 @@ echo "[SU binary] fixing su perms and owners ..." >> /data/local/tmp/autorootlog
 chown root.root /system/xbin/su
 chmod 06755 /system/xbin/su
 
-# [Superuser app] remove existing occurances and push app
-
-if [ ! -f /system/app/Superuser.apk ]; then
-	echo "[Superuser app] pushing app ..." >> /data/local/tmp/autorootlog.txt
-	cp /res/autoroot/Superuser.apk /system/app/Superuser.apk
-fi
-echo "[Superuser app] fixing su perms and owners ..." >> /data/local/tmp/autorootlog.txt
-chown root.root /system/app/Superuser.apk
-chmod 0644 /system/app/Superuser.apk
-
 # [busybox binary] remove existing occurances and push busybox
-if [ ! -f /system/xbin/busybox ];
+if [ ! -e /system/xbin/busybox ];
 then
-	echo "[busybox binary] pushing busybox ..." >> /data/local/tmp/autorootlog.txt
-	cp /res/autoroot/busybox /system/xbin/busybox
+	echo "[busybox binary] symlinking busybox ..." >> /data/local/tmp/autorootlog.txt
+	ln -s /sbin/busybox /system/xbin/busybox
 fi
-echo "[busybox] fixing busybox perms and owners ..." >> /data/local/tmp/autorootlog.txt
-chown root.root /system/xbin/busybox
-chmod 4777 /system/xbin/busybox
-/system/xbin/busybox --install -s /system/xbin/
 
 # [DONE] placing flag
 echo "[DONE] placing flag" >> /data/local/tmp/autorootlog.txt
