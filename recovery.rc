@@ -46,6 +46,7 @@ on property:ro.debuggable=1
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 0FCE
     write /sys/class/android_usb/android0/idProduct 6169
+    write /sys/class/android_usb/f_mass_storage/inquiry_string "SONY    Mass Storage    0100"
     write /sys/class/android_usb/android0/functions mass_storage,adb
     write /sys/class/android_usb/android0/enable 1
     #start adbd
