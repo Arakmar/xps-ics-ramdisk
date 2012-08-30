@@ -215,6 +215,9 @@ on boot
 
     setprop ro.wifi.wps_enable true
 
+    # To use non-Google assistance server
+    setprop ro.gps.agps_provider customized
+
     write /proc/sys/kernel/sysrq 0
     write /proc/sys/kernel/watchdog_thresh 5
 
