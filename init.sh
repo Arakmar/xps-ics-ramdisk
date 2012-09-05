@@ -45,7 +45,7 @@ then
 	# of the symlink /system/etc -> /etc with Sony's init.rc
 	cp recovery.fstab /etc/recovery.fstab
 	
-	ln -s ../init_gb /sbin/ueventd
+	ln -s ../init_ics /sbin/ueventd
 	rm /init.rc
 	rm /init.semc.rc
 	rm /init.usbmode.sh
