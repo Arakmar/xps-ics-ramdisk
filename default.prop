@@ -12,6 +12,6 @@ ro.debuggable=1
 # VERSION_PROPERTIES
 #
 ro.semc.version.sw=1252-0023
-ro.semc.version.sw_revision=6.1.A.2.45
+ro.semc.version.sw_revision=6.1.A.2.50
 ro.semc.version.sw_variant=GENERIC
 ro.semc.version.sw_type=user
