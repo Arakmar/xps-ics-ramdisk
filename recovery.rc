@@ -23,6 +23,7 @@ on init
 on fs
     wait /dev/block/mmcblk0p12
     mount ext4 /dev/block/mmcblk0p12 /system rw barrier=1
+    mount vfat /dev/block/mmcblk0p15 /sdcard
 
 on boot
 
