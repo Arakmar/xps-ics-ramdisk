@@ -15,8 +15,10 @@ mkdir /dev/block
 mkdir /dev/input
 mknod /dev/input/event0 c 13 64
 mknod /dev/block/mmcblk0p13 b 179 13
+mknod /dev/block/mmcblk0p12 b 179 12
 
 mkdir /cache
+mkdir /system
 mount -t ext4 -o nodev,nosuid /dev/block/mmcblk0p13 /cache
 
 if [ ! -f /cache/recovery/boot ]; then
@@ -54,6 +56,13 @@ else
 	umount /cache
 	ln -s ../init_ics /sbin/ueventd
 	
+	# Change the build number according to the build.prop
+	mount -t ext4 -o nodev,nosuid /dev/block/mmcblk0p12 /system
+	NUM_VERSION=`cat /system/build.prop | grep ro.build.id | cut -d '=' -f2`
+	sed -i "s/\(ro.semc.version.sw_revision=\)\(.*\)/\1$NUM_VERSION/" default.prop
+	echo "${NUM_VERSION}-LT26" > crashtag
+	umount /system
+
 	# Boot stock ICS
 	/init_ics
 fi
